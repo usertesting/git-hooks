@@ -16,6 +16,7 @@ fi
 
 echo "Installing hooks to project: ${1}"
 
+mkdir -p ${1}/.git/hooks
 cp -prfv ./hooks/* ${1}/.git/hooks/
 
 echo 

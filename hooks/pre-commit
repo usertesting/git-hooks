@@ -1,0 +1,33 @@
+#!/bin/bash
+
+ERRORS=0
+
+# bad things in javascript
+JSCHANGES=`git diff --cached -G'console\.log' --name-only -- '*.js' '*.coffee'`
+if [[ ! "${JSCHANGES}" == "" ]]
+then
+  echo
+  echo "COMMIT REJECTED Found 'console.log' references."
+  echo "look in: ${JSCHANGES}"
+  ERRORS=1
+fi
+
+# bad things in specs
+SPECCHANGES=`git diff --cached -G'focus.*true' --name-only -- '*.rb'`
+if [ ! "${SPECCHANGES}" == "" ]
+then
+  echo
+  echo "COMMIT REJECTED Found \"focus: true\". "
+  echo "look in: ${SPECCHANGES}"
+  ERRORS=1
+fi
+
+if [[ "$ERRORS" -ne "0" ]]
+then
+  echo
+  echo "Please remove them before commiting."
+  exit 1
+fi
+
+exit 0
+

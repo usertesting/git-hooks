@@ -10,6 +10,7 @@ a collection of helpful githooks that can be added to any git project
 ````bash
 ./install.sh ../projects/myapp
 ````
+
 ## Contributing
 
 1. Fork the repo, add your hook (or modify an existing one)

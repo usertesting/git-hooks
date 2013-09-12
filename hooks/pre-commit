@@ -13,11 +13,11 @@ then
 fi
 
 # bad things in specs
-SPECCHANGES=`git diff --cached -G'focus.*true' --name-only -- '*.rb'`
+SPECCHANGES=`git diff --cached -G':focus|focus.*true' --name-only -- '*.rb'`
 if [ ! "${SPECCHANGES}" == "" ]
 then
   echo
-  echo "COMMIT REJECTED Found \"focus: true\". "
+  echo "COMMIT REJECTED Found \":focus\" or \"focus: true\". "
   echo "look in: ${SPECCHANGES}"
   ERRORS=1
 fi

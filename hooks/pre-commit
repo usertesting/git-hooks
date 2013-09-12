@@ -29,5 +29,26 @@ then
   exit 1
 fi
 
+if command -v flog >/dev/null 2>&1
+then
+  for change in $(git diff --name-only origin/master | cat | grep '.rb')
+  do 
+    current=`cat ${change} | flog --19 -s | grep total | cut -d':' -f1 | sed -e "s/ //g"`
+    remote=`git show origin/master:${change} 2>/dev/null | flog --19 -s | grep total | cut -d':' -f1 | sed -e "s/ //g"`
+    if [ "${remote}" = "0.0" ]
+    then 
+      echo "skipping… file does not exist on remote"
+    elif [[ "${remote}" < "${current}" ]]
+    then
+      echo "Please make sure that the file ${change}, which now has a complexity score of ${current}, isn't any higher than ${remote}"
+      echo "... then try again."
+      exit 1
+    fi
+  done
+else
+  echo "You must install the flog gem to enjoy the flog goodness!"
+  echo "gem install flog"
+fi
+
 exit 0
 

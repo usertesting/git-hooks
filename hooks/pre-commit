@@ -38,7 +38,7 @@ then
     remote=`git show origin/master:${change} 2>/dev/null | flog --19 -s | grep total | cut -d':' -f1 | sed -e "s/ //g"`
     if [ "${remote}" = "0.0" ]
     then 
-      echo "skipping… file does not exist on remote"
+      echo "skipping… ${change} is 0.0 on remote, or does not exist there"
     elif [[ "${remote}" < "${current}" ]]
     then
       echo "Notice: Please make sure that the file ${change}, which now has a complexity score of ${current}, isn't any higher than ${remote}"

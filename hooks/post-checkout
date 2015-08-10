@@ -1,1 +1,1 @@
-pkill -USR2 -f 'bin/guard'
+pkill -USR2 -f 'bin/guard' || true
